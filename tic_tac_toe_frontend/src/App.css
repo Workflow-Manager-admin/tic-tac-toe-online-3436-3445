@@ -21,12 +21,56 @@
   --button-text: #ffffff;
 }
 
+/* --- Tic Tac Toe Modern Minimal Styles --- */
+
+:root {
+  --ttt-primary: #1976d2;
+  --ttt-secondary: #ffffff;
+  --ttt-accent: #ff4081;
+  --ttt-board-bg: #f8f9fa;
+  --ttt-cell-size: min(80px, 18vw);
+  --ttt-border-radius: 16px;
+  --ttt-title-size: 2.6rem;
+}
+
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  background: var(--ttt-secondary);
+  color: var(--ttt-primary);
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
+}
+
+/* Header styles */
+.ttt-header {
+  text-align: center;
+  margin-bottom: 16px;
+  margin-top: 28px;
+}
+
+.ttt-title {
+  font-size: var(--ttt-title-size);
+  margin: 0;
+  font-weight: 700;
+  color: var(--ttt-primary);
+}
+
+.ttt-brand-line {
+  margin: 1.2em auto 0.6em auto;
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--ttt-primary),
+    var(--ttt-accent)
+  );
+  border-radius: 2px;
+}
+
+.App-link {
+  color: var(--ttt-primary);
+  text-decoration: underline dotted;
 }
 
 .App-logo {
@@ -94,11 +138,145 @@
 }
 
 /* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+/* --- Main Layout --- */
+.ttt-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+  min-height: 60vh;
 }
+
+/* Status panel */
+.status-panel {
+  margin-bottom: 18px;
+  padding: 12px 30px 10px 30px;
+  background: #f7fafd;
+  color: var(--ttt-primary);
+  border-radius: 15px;
+  border: 1px solid #e0e0e0;
+  font-size: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 220px;
+  box-shadow: 0 2px 9px -8px var(--ttt-primary);
+}
+.status {
+  font-weight: 600;
+  font-size: 1.13rem;
+}
+.mode-select {
+  font-size: 1.01rem;
+  color: var(--ttt-primary);
+  user-select: none;
+}
+.mode-select input[type="checkbox"] {
+  accent-color: var(--ttt-accent);
+}
+
+/* Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, var(--ttt-cell-size));
+  grid-template-rows: repeat(3, var(--ttt-cell-size));
+  gap: 10px;
+  background: var(--ttt-board-bg);
+  border-radius: var(--ttt-border-radius);
+  box-shadow: 0 4px 16px -10px var(--ttt-primary);
+  border: 1.5px solid #e9eafd;
+  margin-bottom: 18px;
+}
+.square {
+  width: var(--ttt-cell-size);
+  height: var(--ttt-cell-size);
+  background: var(--ttt-secondary);
+  border: 2px solid #cfd8dc;
+  border-radius: 13px;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--ttt-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s, border 0.15s, box-shadow 0.17s;
+  box-shadow: 0 1.5px 7px -3px #e0e0e0;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+.square:active, .square.win {
+  background: #e6e9f7;
+}
+.square.win {
+  border: 2.5px solid var(--ttt-accent);
+  background: #fbeff6;
+}
+.square:disabled {
+  color: #d2d7df;
+  background: #f9fbfd;
+  cursor: not-allowed;
+}
+
+/* Restart button */
+.btn-restart {
+  margin-top: 12px;
+  background: var(--ttt-accent);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 1.7px 6px -5px var(--ttt-primary);
+  font-weight: 700;
+  font-size: 1.09rem;
+  padding: 10px 30px;
+  transition: background 0.17s, box-shadow 0.13s, transform 0.16s;
+  cursor: pointer;
+  outline: none;
+  letter-spacing: 1px;
+}
+.btn-restart:hover:enabled {
+  background: #f96eaf;
+  color: var(--ttt-primary);
+  box-shadow: 0 4px 20px -7px var(--ttt-accent);
+  transform: translateY(-2px) scale(1.04);
+  opacity: 0.96;
+}
+.btn-restart:disabled {
+  background: #eee;
+  color: #c0bfc5;
+  cursor: not-allowed;
+}
+
+/* Footer styles */
+.ttt-footer {
+  margin-top: 40px;
+  padding: 16px 0 12px 0;
+  background: linear-gradient(89deg, #f3f7fc 60%, #e4f2f6 100%);
+  color: #9eacc3;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .ttt-main { min-height: 20vh; }
+  .board {
+    grid-template-columns: repeat(3, min(18vw, 60px));
+    grid-template-rows: repeat(3, min(18vw, 60px));
+    gap: 6px;
+  }
+  .square {
+    font-size: 1.7rem;
+    min-width: 38px;
+    min-height: 38px;
+    border-radius: 7px;
+  }
+  .status-panel { font-size: 1rem; padding: 10px 8vw; }
+  .ttt-title { font-size: 2.1rem; }
+  .ttt-brand-line { width: 60px; height: 2px; }
+}
+
+/* Remove old theme-toggle, unused for this app */
+.theme-toggle { display: none; }
